@@ -1,4 +1,4 @@
-package com.example.myapplicationcompose;
+package com.example.myapplicationcompose.test;
 
 import java.text.DecimalFormat;
 
