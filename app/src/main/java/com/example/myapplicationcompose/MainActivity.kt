@@ -21,6 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.myapplicationcompose.learn.HelloContent
 import com.example.myapplicationcompose.learn.HelloScreen
+import com.example.myapplicationcompose.learn.WellnessScreen
 import com.example.myapplicationcompose.ui.theme.MyApplicationComposeTheme
 import com.swallowsonny.convertextlibrary.toHexString
 import java.io.ByteArrayOutputStream
@@ -45,7 +46,7 @@ fun MyApp(){
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colors.background
         ) {
-            HelloScreen()
+            WellnessScreen()
         }
     }
 }
