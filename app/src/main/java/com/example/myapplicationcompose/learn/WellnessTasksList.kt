@@ -9,6 +9,7 @@ fun getWellnessTasks() = List(30) { i -> WellnessTask(i, "Task # $i") }
 @Composable
 fun WellnessTasksList(
     modifier: Modifier = Modifier,
+    onCheckedTask: (WellnessTask, Boolean) -> Unit,
     list: List<WellnessTask>,
     onCloseTask:(WellnessTask)->Unit
 ) {
@@ -19,7 +20,11 @@ fun WellnessTasksList(
             items = list,
             key = {task -> task.id}
         ) { task ->
-            WellnessTaskItem(taskName = task.label, onClose = {onCloseTask(task)})
+            WellnessTaskItem(
+                taskName = task.label,
+                checked = task.checked,
+                onCheckedChange = { checked -> onCheckedTask(task, checked) },
+                onClose = {onCloseTask(task)})
         }
     }
 }
