@@ -4,11 +4,17 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.myapplicationcompose.learn.WellnessScreen
 import com.example.myapplicationcompose.ui.theme.MyApplicationComposeTheme
 
@@ -16,22 +22,41 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MyApp()
+            ComposeNavigation()
         }
     }
 }
 
-@Preview(showBackground = true)
 @Composable
-fun MyApp(){
+fun ComposeNavigation(){
+    val navController = rememberNavController()
+    NavHost(navController = navController, startDestination = "main"){
+        composable("main"){
+            MyApp(navController = navController)
+        }
+        composable("test"){
+            TestScreen(navController = navController)
+        }
+    }
+}
+
+@Composable
+fun MyApp(navController: NavController){
     MyApplicationComposeTheme {
         // A surface container using the 'background' color from the theme
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colors.background
         ) {
-            WellnessScreen()
+            Button(onClick = {navController.navigate("test")}) {
+                Text(text = "button")
+            }
         }
     }
 }
 
+@Composable
+fun TestScreen(navController: NavController){
+
+    Text(text = "test1111")
+}
