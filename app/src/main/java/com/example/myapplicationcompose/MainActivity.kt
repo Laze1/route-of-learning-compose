@@ -10,12 +10,10 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.myapplicationcompose.learn.WellnessScreen
 import com.example.myapplicationcompose.ui.theme.MyApplicationComposeTheme
 
 class MainActivity : ComponentActivity() {
@@ -35,7 +33,7 @@ fun ComposeNavigation(){
             MyApp(navController = navController)
         }
         composable("test"){
-            TestScreen(navController = navController)
+            TestScreen()
         }
     }
 }
@@ -56,7 +54,6 @@ fun MyApp(navController: NavController){
 }
 
 @Composable
-fun TestScreen(navController: NavController){
-
+fun TestScreen(){
     Text(text = "test1111")
 }
