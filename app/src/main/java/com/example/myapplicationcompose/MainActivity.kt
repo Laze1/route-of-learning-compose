@@ -8,7 +8,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.example.myapplicationcompose.navigation.ComposeNavigation
 import com.example.myapplicationcompose.screen.NavigationListScreen
 import com.example.myapplicationcompose.ui.theme.MyApplicationComposeTheme
@@ -23,7 +23,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MyApp(navController: NavController){
+fun MyApp(navController: NavHostController){
     MyApplicationComposeTheme {
         // A surface container using the 'background' color from the theme
         Surface(
