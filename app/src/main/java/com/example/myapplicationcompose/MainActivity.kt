@@ -4,16 +4,13 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
+import com.example.myapplicationcompose.navigation.ComposeNavigation
+import com.example.myapplicationcompose.screen.NavigationListScreen
 import com.example.myapplicationcompose.ui.theme.MyApplicationComposeTheme
 
 class MainActivity : ComponentActivity() {
@@ -26,19 +23,6 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun ComposeNavigation(){
-    val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "main"){
-        composable("main"){
-            MyApp(navController = navController)
-        }
-        composable("test"){
-            TestScreen()
-        }
-    }
-}
-
-@Composable
 fun MyApp(navController: NavController){
     MyApplicationComposeTheme {
         // A surface container using the 'background' color from the theme
@@ -46,14 +30,7 @@ fun MyApp(navController: NavController){
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colors.background
         ) {
-            Button(onClick = {navController.navigate("test")}) {
-                Text(text = "button")
-            }
+            NavigationListScreen(navController)
         }
     }
-}
-
-@Composable
-fun TestScreen(){
-    Text(text = "test1111")
 }
