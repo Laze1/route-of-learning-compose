@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.myapplicationcompose.MyApp
 import com.example.myapplicationcompose.learn.WellnessScreen
+import com.example.myapplicationcompose.screen.ComposeUIListScreen
 
 @Composable
 fun ComposeNavigation(){
@@ -18,6 +19,9 @@ fun ComposeNavigation(){
         }
         composable(Wellness.route){
             WellnessScreen()
+        }
+        composable(ComposeUIList.route){
+            ComposeUIListScreen()
         }
     }
 }
