@@ -1,27 +1,33 @@
 package com.example.myapplicationcompose.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import com.example.myapplicationcompose.MyApp
+import com.example.myapplicationcompose.learn.ShowView
 import com.example.myapplicationcompose.learn.WellnessScreen
 import com.example.myapplicationcompose.screen.ComposeUIListScreen
+import com.example.myapplicationcompose.ui.screen.NavigationListScreen
 
 @Composable
-fun ComposeNavigation(){
-    val navController = rememberNavController()
+fun ComposeNavigation(navController : NavHostController,modifier: Modifier){
     NavHost(navController = navController, startDestination = MainApp.route){
         composable(MainApp.route){
-            MyApp(navController = navController)
+            NavigationListScreen(navController, modifier = modifier)
+        }
+        composable(MainFragmentList.route){
+            NavigationListScreen(navController, modifier = modifier)
+        }
+        composable(MainFragmentHome.route){
+            ShowView()
         }
         composable(Wellness.route){
-            WellnessScreen()
+            WellnessScreen(modifier = modifier)
         }
         composable(ComposeUIList.route){
-            ComposeUIListScreen()
+            ComposeUIListScreen(modifier = modifier)
         }
     }
 }
