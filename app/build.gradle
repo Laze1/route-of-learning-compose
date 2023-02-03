@@ -66,4 +66,8 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1"
 
     implementation "androidx.navigation:navigation-compose:2.5.3"
+
+    implementation 'com.squareup.okhttp3:okhttp:4.10.0'
+    implementation 'com.squareup.okio:okio:3.2.0'
+    implementation 'io.coil-kt:coil-compose:2.2.2'
 }

@@ -22,9 +22,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.example.myapplicationcompose.R
 
+@Preview
 @Composable
 fun ComposeUIListScreen(
 //    navHostController: NavHostController,
@@ -60,6 +64,12 @@ fun ComposeUIListScreen(
                 .clip(RoundedCornerShape(5.dp))
         )
 
+        Image(painter = painterResource(id = R.mipmap.xiao), contentDescription = "魈")
+
+        AsyncImage(
+            model = "https://developer.android.google.cn/static/images/home/android-logo-13-twotone-1_720.png?hl=zh-cn",
+            contentDescription = null )
+
         var inputValue by rememberSaveable { mutableStateOf("") }
 
         TextField(
@@ -73,7 +83,10 @@ fun ComposeUIListScreen(
         OutlinedTextField(
             value = inputOutlineValue,
             onValueChange = { inputOutlineValue = it },
-            modifier = modifier.padding(top = 10.dp)
+            modifier = modifier.padding(top = 10.dp),
+            label = {
+                Text(text = "Input")
+            }
         )
 
 
