@@ -12,22 +12,24 @@ import com.example.myapplicationcompose.screen.ComposeUIListScreen
 import com.example.myapplicationcompose.ui.screen.NavigationListScreen
 
 @Composable
-fun ComposeNavigation(navController : NavHostController,modifier: Modifier){
-    NavHost(navController = navController, startDestination = MainApp.route){
-        composable(MainApp.route){
-            NavigationListScreen(navController, modifier = modifier)
-        }
+fun ComposeNavigation(navController : NavHostController, modifier: Modifier, barShow:(Boolean) -> Unit){
+    NavHost(navController = navController, startDestination = MainFragmentList.route){
+//        composable(MainApp.route){ NavigationListScreen(navController, modifier = modifier) }
         composable(MainFragmentList.route){
             NavigationListScreen(navController, modifier = modifier)
+            barShow(true)
         }
         composable(MainFragmentHome.route){
             ShowView()
+            barShow(true)
         }
         composable(Wellness.route){
             WellnessScreen(modifier = modifier)
+            barShow(false)
         }
         composable(ComposeUIList.route){
             ComposeUIListScreen(modifier = modifier)
+            barShow(false)
         }
     }
 }
