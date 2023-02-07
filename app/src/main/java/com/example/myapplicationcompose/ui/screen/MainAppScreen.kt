@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Done
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -38,13 +40,19 @@ fun MainContent(
             color = MaterialTheme.colors.background
         ) {
             Scaffold(
-                topBar = { TopBar() },
+                topBar = {
+                    if (barShow) {
+                        TopBar()
+                    }
+                },
                 bottomBar = {
                     if (barShow) {
                         BottomBar { navController.navigateSingleTopTo(it) }
                     }
                 },
-                drawerContent = if (barShow) { { DrawerContent()} } else null,
+                drawerContent = if (barShow) {
+                    { DrawerContent() }
+                } else null,
             ) { paddingValues ->
                 ComposeNavigation(navController, modifier = Modifier.padding(paddingValues)) {
                     barShow = it
@@ -81,14 +89,20 @@ private fun TopBar() {
 
 @Composable
 fun BottomBar(onclick: (String) -> Unit) {
-    BottomNavigation {
+    BottomNavigation(
+        backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.primaryContainer
+    ) {
         bottomNavigationList.forEach {
             BottomNavigationItem(
                 selected = it.route == MainFragmentList.route,
-                icon = { it.icon },
+                icon = {
+                    Icon(
+                        imageVector = it.icon ?: Icons.Filled.Done,
+                        contentDescription = it.label
+                    )
+                },
                 label = { Text(text = it.label) },
                 onClick = { onclick(it.route) })
         }
     }
 }
-
