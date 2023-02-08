@@ -2,13 +2,14 @@ package com.example.myapplicationcompose.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.myapplicationcompose.learn.ShowView
 import com.example.myapplicationcompose.learn.WellnessScreen
-import com.example.myapplicationcompose.screen.ComposeUIListScreen
+import com.example.myapplicationcompose.ui.screen.ComposeUIListScreen
 import com.example.myapplicationcompose.ui.screen.NavigationListScreen
 
 @Composable
@@ -28,13 +29,13 @@ fun ComposeNavigation(navController : NavHostController, modifier: Modifier, bar
             barShow(false)
         }
         composable(ComposeUIList.route){
-            ComposeUIListScreen(modifier = modifier)
+            ComposeUIListScreen(navController, modifier)
             barShow(false)
         }
     }
 }
 
-fun NavHostController.navigateSingleTopTo(route: String) =
+fun NavController.navigateSingleTopTo(route: String) =
     this.navigate(route) {
         popUpTo(
             this@navigateSingleTopTo.graph.findStartDestination().id

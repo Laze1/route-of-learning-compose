@@ -8,14 +8,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
+import androidx.navigation.NavController
 import com.example.myapplicationcompose.navigation.MainApp
 import com.example.myapplicationcompose.navigation.navList
 import com.example.myapplicationcompose.navigation.navigateSingleTopTo
 
 @Composable
 fun NavigationListScreen(
-    navController: NavHostController,
+    navController: NavController,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(modifier = modifier.padding(15.dp)) {

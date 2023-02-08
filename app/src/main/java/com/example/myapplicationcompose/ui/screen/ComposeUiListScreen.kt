@@ -1,5 +1,6 @@
-package com.example.myapplicationcompose.screen
+package com.example.myapplicationcompose.ui.screen
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -23,72 +24,79 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.myapplicationcompose.R
 
-@Preview
 @Composable
 fun ComposeUIListScreen(
-//    navHostController: NavHostController,
+    navController: NavController,
     modifier: Modifier = Modifier
 ) {
     val scrollState = rememberScrollState()
-    Column(
-        modifier = modifier
-            .padding(15.dp)
-            .verticalScroll(state = scrollState)
-    ) {
-        Text(text = "这是一个Text控件", modifier = modifier)
-
-        var count by rememberSaveable { mutableStateOf(0) }
-        Button(
-            onClick = { count++ },
-        ) {
-            Text(text = if (count == 0) "这是一个Button" else "$count")
+    Column {
+        TopBar("列表",navController, showMore = true){
+            Toast.makeText(navController.context,"没有更多了",Toast.LENGTH_LONG).show()
         }
 
-        Button(
-            modifier = modifier.fillMaxWidth(),
-            onClick = { },
-        ) {
-            Text(text = "很长的Button")
-        }
-
-        Image(
-            bitmap = ImageBitmap.imageResource(id = R.mipmap.r),
-            contentDescription = null,
+        Column(
             modifier = modifier
-                .padding(10.dp)
-                .clip(RoundedCornerShape(5.dp))
-        )
+                .padding(15.dp, 0.dp, 15.dp, 0.dp)
+                .verticalScroll(state = scrollState)
+        ) {
 
-        Image(painter = painterResource(id = R.mipmap.xiao), contentDescription = "魈")
+            Text(text = "这是一个Text控件", modifier = modifier.padding(10.dp))
 
-        AsyncImage(
-            model = "https://developer.android.google.cn/static/images/home/android-logo-13-twotone-1_720.png?hl=zh-cn",
-            contentDescription = null )
-
-        var inputValue by rememberSaveable { mutableStateOf("") }
-
-        TextField(
-            value = inputValue,
-            onValueChange = { inputValue = it },
-            modifier = Modifier.background(color = Color.White)//无用？
-        )
-
-        var inputOutlineValue by rememberSaveable { mutableStateOf("") }
-
-        OutlinedTextField(
-            value = inputOutlineValue,
-            onValueChange = { inputOutlineValue = it },
-            modifier = modifier.padding(top = 10.dp),
-            label = {
-                Text(text = "Input")
+            var count by rememberSaveable { mutableStateOf(0) }
+            Button(
+                onClick = { count++ },
+            ) {
+                Text(text = if (count == 0) "这是一个Button" else "$count")
             }
-        )
+
+            Button(
+                modifier = modifier.fillMaxWidth(),
+                onClick = { },
+            ) {
+                Text(text = "很长的Button")
+            }
+
+            Image(
+                bitmap = ImageBitmap.imageResource(id = R.mipmap.r),
+                contentDescription = null,
+                modifier = modifier
+                    .padding(10.dp)
+                    .clip(RoundedCornerShape(5.dp))
+            )
+
+            Image(painter = painterResource(id = R.mipmap.xiao), contentDescription = "魈")
+
+            AsyncImage(
+                model = "https://developer.android.google.cn/static/images/home/android-logo-13-twotone-1_720.png?hl=zh-cn",
+                contentDescription = null
+            )
+
+            var inputValue by rememberSaveable { mutableStateOf("") }
+
+            TextField(
+                value = inputValue,
+                onValueChange = { inputValue = it },
+                modifier = Modifier.background(color = Color.White)//无用？
+            )
+
+            var inputOutlineValue by rememberSaveable { mutableStateOf("") }
+
+            OutlinedTextField(
+                value = inputOutlineValue,
+                onValueChange = { inputOutlineValue = it },
+                modifier = modifier.padding(top = 10.dp),
+                label = {
+                    Text(text = "Input")
+                }
+            )
 
 
+        }
     }
 }
