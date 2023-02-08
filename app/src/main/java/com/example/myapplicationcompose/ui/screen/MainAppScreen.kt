@@ -1,9 +1,6 @@
 package com.example.myapplicationcompose.ui.screen
 
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
@@ -16,7 +13,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -29,6 +25,7 @@ import com.example.myapplicationcompose.navigation.MainFragmentList
 import com.example.myapplicationcompose.navigation.bottomNavigationList
 import com.example.myapplicationcompose.navigation.navigateSingleTopTo
 import com.example.myapplicationcompose.ui.theme.MyApplicationComposeTheme
+import com.example.myapplicationcompose.ui.view.ButtonTransparent
 
 @Composable
 fun MainContent(
@@ -97,29 +94,17 @@ fun TopBar(
                 modifier = Modifier.align(Alignment.Center),
             )
             if (showBack) {
-                OutlinedButton(
-                    modifier = Modifier.align(Alignment.CenterStart),
-                    contentPadding = PaddingValues(0.dp),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
-                    border = BorderStroke(0.dp, Color.Transparent),
-                    onClick = { navController?.popBackStack() }
+                ButtonTransparent(
+                    Modifier.align(Alignment.CenterStart),
+                    { navController?.popBackStack() }
                 ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.back),
-                        contentDescription = null,
-                        modifier = Modifier.background(
-                            Color.Transparent
-                        )
-                    )
+                    Icon(painter = painterResource(id = R.drawable.back), contentDescription = null)
                 }
             }
             if (showMore) {
-                OutlinedButton(
-                    modifier = Modifier.align(Alignment.CenterEnd),
-                    contentPadding = PaddingValues(0.dp),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
-                    border = BorderStroke(0.dp, Color.Transparent),
-                    onClick = onMoreClick
+                ButtonTransparent(
+                    Modifier.align(Alignment.CenterEnd),
+                    onMoreClick
                 ) {
                     Icon(painter = painterResource(id = R.drawable.more), contentDescription = null)
                 }
