@@ -14,7 +14,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
@@ -63,7 +62,6 @@ fun MainContent(
     }
 }
 
-@Preview
 @Composable
 private fun DrawerContent() {
     AsyncImage(
@@ -73,7 +71,6 @@ private fun DrawerContent() {
     Text(text = "这是一个侧边栏", modifier = Modifier.padding(15.dp))
 }
 
-@Preview
 @Composable
 fun TopBar(
     title: String = "标题",
@@ -89,7 +86,7 @@ fun TopBar(
     ) {
         Box(contentAlignment = Alignment.Center, modifier = Modifier.weight(1f)) {
             Text(
-                text = "首页",
+                text = title,
                 fontSize = androidx.compose.material3.MaterialTheme.typography.titleMedium.fontSize,
                 modifier = Modifier.align(Alignment.Center),
             )
