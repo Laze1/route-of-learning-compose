@@ -42,7 +42,7 @@ fun MainContent(
             Scaffold(
                 topBar = {
                     if (barShow) {
-                        TopBar("首页", showBack = false)
+                        TopBar("首页")
                     }
                 },
                 bottomBar = {
@@ -75,7 +75,6 @@ private fun DrawerContent() {
 fun TopBar(
     title: String = "标题",
     navController: NavController? = null,
-    showBack: Boolean = true,
     showMore: Boolean = false,
     onMoreClick: () -> Unit = {}
 ) {
@@ -90,10 +89,10 @@ fun TopBar(
                 fontSize = androidx.compose.material3.MaterialTheme.typography.titleMedium.fontSize,
                 modifier = Modifier.align(Alignment.Center),
             )
-            if (showBack) {
+            navController?.let {
                 ButtonTransparent(
                     Modifier.align(Alignment.CenterStart),
-                    { navController?.popBackStack() }
+                    { it.popBackStack() }
                 ) {
                     Icon(painter = painterResource(id = R.drawable.back), contentDescription = null)
                 }

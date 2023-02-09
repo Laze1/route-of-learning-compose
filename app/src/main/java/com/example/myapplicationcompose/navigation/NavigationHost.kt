@@ -9,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.myapplicationcompose.learn.ShowView
 import com.example.myapplicationcompose.learn.WellnessScreen
+import com.example.myapplicationcompose.ui.sample.text.TextUiListScreen
 import com.example.myapplicationcompose.ui.screen.ComposeUIListScreen
 import com.example.myapplicationcompose.ui.screen.NavigationListScreen
 
@@ -30,6 +31,10 @@ fun ComposeNavigation(navController : NavHostController, modifier: Modifier, bar
         }
         composable(ComposeUIList.route){
             ComposeUIListScreen(navController, modifier)
+            barShow(false)
+        }
+        composable(TextUIList.route){
+            TextUiListScreen(navController)
             barShow(false)
         }
     }

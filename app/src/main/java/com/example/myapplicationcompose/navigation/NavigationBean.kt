@@ -28,3 +28,7 @@ object ComposeUIList : RallyDestination() {
     override val route = "ComposeUIList"
 }
 
+object TextUIList : RallyDestination() {
+    override val route = "TextUIList"
+}
+
