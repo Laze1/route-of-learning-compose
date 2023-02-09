@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "800975356732",
+    "project_id": "bustling-icon-302210",
+    "storage_bucket": "bustling-icon-302210.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:800975356732:android:ce1a22b88b48ba74cdd439",
+        "android_client_info": {
+          "package_name": "com.example.myapplicationcompose"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "800975356732-3d85kc6478pd1ghicdad5valu3ljbbd5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBz7wNxNrzvHhD1mroR7JDAUv7PCzWKewg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "800975356732-3d85kc6478pd1ghicdad5valu3ljbbd5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
