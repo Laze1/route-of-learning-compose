@@ -10,4 +10,5 @@ val navList = listOf(
     Wellness.route,
     TextUIList.route,
     ModifierSample.route,
+    ButtonSample.route,
 )

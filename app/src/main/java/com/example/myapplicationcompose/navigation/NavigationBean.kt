@@ -36,3 +36,7 @@ object ModifierSample : RallyDestination() {
     override val route = "ModifierSample"
 }
 
+object ButtonSample : RallyDestination() {
+    override val route = "ButtonSample"
+}
+
