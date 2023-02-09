@@ -1,4 +1,4 @@
-package com.example.myapplicationcompose.ui.sample.text
+package com.example.myapplicationcompose.ui.sample
 
 import android.util.Log
 import androidx.compose.foundation.ScrollState

@@ -8,5 +8,6 @@ val navList = listOf(
     MainApp.route,
     ComposeUIList.route,
     Wellness.route,
-    TextUIList.route
+    TextUIList.route,
+    ModifierSample.route,
 )

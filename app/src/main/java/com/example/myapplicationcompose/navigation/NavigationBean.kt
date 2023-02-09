@@ -32,3 +32,7 @@ object TextUIList : RallyDestination() {
     override val route = "TextUIList"
 }
 
+object ModifierSample : RallyDestination() {
+    override val route = "ModifierSample"
+}
+
