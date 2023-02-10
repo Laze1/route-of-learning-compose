@@ -5,10 +5,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.TextButton
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Translate
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -56,7 +55,8 @@ fun ButtonSampleScreen() {
         }
 
         IconButton(onClick = {}) {
-            Text("IconButton")
+            //一般放Icon，但也可以放其他的
+            Icon(imageVector = Icons.Default.Translate, contentDescription = null)
         }
     }
 }

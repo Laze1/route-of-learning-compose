@@ -10,6 +10,7 @@ import androidx.navigation.compose.composable
 import com.example.myapplicationcompose.learn.ShowView
 import com.example.myapplicationcompose.learn.WellnessScreen
 import com.example.myapplicationcompose.ui.sample.ButtonSampleScreen
+import com.example.myapplicationcompose.ui.sample.IconSampleScreen
 import com.example.myapplicationcompose.ui.sample.ModifierSample
 import com.example.myapplicationcompose.ui.sample.TextUiListScreen
 import com.example.myapplicationcompose.ui.screen.ComposeUIListScreen
@@ -45,6 +46,10 @@ fun ComposeNavigation(navController : NavHostController, modifier: Modifier, bar
         }
         composable(ButtonSample.route){
             ButtonSampleScreen()
+            barShow(false)
+        }
+        composable(IconSample.route){
+            IconSampleScreen()
             barShow(false)
         }
     }

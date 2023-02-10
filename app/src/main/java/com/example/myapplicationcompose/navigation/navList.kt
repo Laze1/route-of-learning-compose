@@ -11,4 +11,5 @@ val navList = listOf(
     TextUIList.route,
     ModifierSample.route,
     ButtonSample.route,
+    IconSample.route,
 )
