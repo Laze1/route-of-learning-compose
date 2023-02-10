@@ -57,6 +57,10 @@ fun ComposeNavigation(navController : NavHostController, modifier: Modifier, bar
             SwitchSampleScreen()
             barShow(false)
         }
+        composable(TextFieldSample.route){
+            TextFieldSampleScreen()
+            barShow(false)
+        }
     }
 }
 

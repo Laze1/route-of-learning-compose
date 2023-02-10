@@ -14,4 +14,5 @@ val navList = listOf(
     IconSample.route,
     ImageSample.route,
     SwitchSample.route,
+    TextFieldSample.route,
 )

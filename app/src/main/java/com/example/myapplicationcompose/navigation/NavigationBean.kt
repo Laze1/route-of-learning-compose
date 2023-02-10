@@ -52,3 +52,7 @@ object SwitchSample : RallyDestination() {
     override val route = "SwitchSample"
 }
 
+object TextFieldSample : RallyDestination() {
+    override val route = "TextFieldSample"
+}
+
