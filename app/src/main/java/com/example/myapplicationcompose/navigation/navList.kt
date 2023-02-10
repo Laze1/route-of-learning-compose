@@ -12,4 +12,5 @@ val navList = listOf(
     ModifierSample.route,
     ButtonSample.route,
     IconSample.route,
+    ImageSample.route,
 )

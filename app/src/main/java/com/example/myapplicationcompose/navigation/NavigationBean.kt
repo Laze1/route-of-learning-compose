@@ -44,3 +44,7 @@ object IconSample : RallyDestination() {
     override val route = "IconSample"
 }
 
+object ImageSample : RallyDestination() {
+    override val route = "ImageSample"
+}
+
