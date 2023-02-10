@@ -48,3 +48,7 @@ object ImageSample : RallyDestination() {
     override val route = "ImageSample"
 }
 
+object SwitchSample : RallyDestination() {
+    override val route = "SwitchSample"
+}
+

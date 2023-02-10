@@ -53,6 +53,10 @@ fun ComposeNavigation(navController : NavHostController, modifier: Modifier, bar
             ImageSampleScreen()
             barShow(false)
         }
+        composable(SwitchSample.route){
+            SwitchSampleScreen()
+            barShow(false)
+        }
     }
 }
 
