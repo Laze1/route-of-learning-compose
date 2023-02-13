@@ -2,15 +2,11 @@ package com.example.myapplicationcompose.ui.screen
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -26,7 +22,6 @@ import com.example.myapplicationcompose.navigation.MainFragmentHome
 import com.example.myapplicationcompose.navigation.MainFragmentList
 import com.example.myapplicationcompose.navigation.bottomNavigationList
 import com.example.myapplicationcompose.navigation.navigateSingleTopTo
-import com.example.myapplicationcompose.ui.theme.MyApplicationComposeTheme
 import com.example.myapplicationcompose.ui.view.ButtonTransparent
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -34,36 +29,18 @@ import com.example.myapplicationcompose.ui.view.ButtonTransparent
 fun MainContent(
     navController: NavController
 ) {
-    val barShow by rememberSaveable { mutableStateOf(true) }
     val nav = rememberNavController()
-    MyApplicationComposeTheme {
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colors.background
-        ) {
-            Scaffold(
-                topBar = {
-                    if (barShow) {
-                        TopBar("首页")
-                    }
-                },
-                bottomBar = {
-                    if (barShow) {
-                        BottomBar { nav.navigateSingleTopTo(it) }
-                    }
-                },
-                drawerContent = if (barShow) {
-                    { DrawerContent() }
-                } else null,
-            ) { paddingValues ->
-                NavHost(navController = nav, startDestination = MainFragmentList.route){
-                    composable(MainFragmentList.route){
-                        NavigationListScreen(navController, modifier = Modifier.padding(paddingValues))
-                    }
-                    composable(MainFragmentHome.route){
-                        ShowView()
-                    }
-                }
+    Scaffold(
+        topBar = { TopBar("首页") },
+        bottomBar = { BottomBar { nav.navigateSingleTopTo(it) } },
+        drawerContent = { DrawerContent() },
+    ) { paddingValues ->
+        NavHost(navController = nav, startDestination = MainFragmentList.route) {
+            composable(MainFragmentList.route) {
+                NavigationListScreen(navController, modifier = Modifier.padding(paddingValues))
+            }
+            composable(MainFragmentHome.route) {
+                ShowView()
             }
         }
     }
@@ -103,6 +80,42 @@ fun TopBar(
                 ) {
                     Icon(painter = painterResource(id = R.drawable.back), contentDescription = null)
                 }
+            }
+            if (showMore) {
+                ButtonTransparent(
+                    Modifier.align(Alignment.CenterEnd),
+                    onMoreClick
+                ) {
+                    Icon(painter = painterResource(id = R.drawable.more), contentDescription = null)
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun TopBar(
+    title: String = "标题",
+    showMore: Boolean = false,
+    onMoreClick: () -> Unit = {},
+    onBack:() -> Unit,
+) {
+    TopAppBar(
+        modifier = Modifier.padding(0.dp),
+        backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.primaryContainer,
+        contentColor = MaterialTheme.colors.onBackground,
+    ) {
+        Box(contentAlignment = Alignment.Center, modifier = Modifier.weight(1f)) {
+            Text(
+                text = title,
+                fontSize = androidx.compose.material3.MaterialTheme.typography.titleMedium.fontSize,
+                modifier = Modifier.align(Alignment.Center),
+            )
+            ButtonTransparent(
+                Modifier.align(Alignment.CenterStart),
+                { onBack() }
+            ) {
+                Icon(painter = painterResource(id = R.drawable.back), contentDescription = null)
             }
             if (showMore) {
                 ButtonTransparent(

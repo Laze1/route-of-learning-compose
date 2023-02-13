@@ -7,6 +7,7 @@ val bottomNavigationList = listOf(
 val navList = listOf(
     MainApp.route,
     ComposeUIList.route,
+    ListScreen.route,
     Wellness.route,
     TextUIList.route,
     ModifierSample.route,

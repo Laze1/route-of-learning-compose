@@ -56,3 +56,11 @@ object TextFieldSample : RallyDestination() {
     override val route = "TextFieldSample"
 }
 
+object ListScreen : RallyDestination() {
+    override val route = "ListScreen"
+}
+
+object ListItemDetail : RallyDestination() {
+    override val route = "ListItemDetail"
+}
+
