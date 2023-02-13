@@ -31,8 +31,7 @@ import com.example.myapplicationcompose.R
 
 @Composable
 fun ComposeUIListScreen(
-    navController: NavController,
-    modifier: Modifier = Modifier
+    navController: NavController
 ) {
     val scrollState = rememberScrollState()
     Column {
@@ -41,12 +40,12 @@ fun ComposeUIListScreen(
         }
 
         Column(
-            modifier = modifier
+            modifier = Modifier
                 .padding(15.dp, 0.dp, 15.dp, 0.dp)
                 .verticalScroll(state = scrollState)
         ) {
 
-            Text(text = "这是一个Text控件", modifier = modifier.padding(10.dp))
+            Text(text = "这是一个Text控件", modifier = Modifier.padding(10.dp))
 
             var count by rememberSaveable { mutableStateOf(0) }
             Button(
@@ -56,7 +55,7 @@ fun ComposeUIListScreen(
             }
 
             Button(
-                modifier = modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth(),
                 onClick = { },
             ) {
                 Text(text = "很长的Button")
@@ -65,7 +64,7 @@ fun ComposeUIListScreen(
             Image(
                 bitmap = ImageBitmap.imageResource(id = R.mipmap.r),
                 contentDescription = null,
-                modifier = modifier
+                modifier = Modifier
                     .padding(10.dp)
                     .clip(RoundedCornerShape(5.dp))
             )
@@ -90,7 +89,7 @@ fun ComposeUIListScreen(
             OutlinedTextField(
                 value = inputOutlineValue,
                 onValueChange = { inputOutlineValue = it },
-                modifier = modifier.padding(top = 10.dp),
+                modifier = Modifier.padding(top = 10.dp),
                 label = {
                     Text(text = "Input")
                 }

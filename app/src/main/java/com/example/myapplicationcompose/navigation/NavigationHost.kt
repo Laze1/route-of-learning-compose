@@ -1,24 +1,29 @@
 package com.example.myapplicationcompose.navigation
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import com.example.myapplicationcompose.learn.ShowView
 import com.example.myapplicationcompose.learn.WellnessScreen
 import com.example.myapplicationcompose.ui.sample.*
 import com.example.myapplicationcompose.ui.screen.ComposeUIListScreen
+import com.example.myapplicationcompose.ui.screen.MainContent
 import com.example.myapplicationcompose.ui.screen.NavigationListScreen
+import com.google.accompanist.navigation.animation.AnimatedNavHost
+import com.google.accompanist.navigation.animation.composable
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun ComposeNavigation(navController : NavHostController, modifier: Modifier, barShow:(Boolean) -> Unit){
-    NavHost(navController = navController, startDestination = MainFragmentList.route){
-//        composable(MainApp.route){ NavigationListScreen(navController, modifier = modifier) }
+fun ComposeNavigation(barShow:(Boolean) -> Unit = { }){
+    val navController = rememberAnimatedNavController()
+    AnimatedNavHost(navController = navController, startDestination = MainApp.route){
+        composable(MainApp.route){
+            MainContent(navController)
+        }
         composable(MainFragmentList.route){
-            NavigationListScreen(navController, modifier = modifier)
+            NavigationListScreen(navController)
             barShow(true)
         }
         composable(MainFragmentHome.route){
@@ -26,11 +31,11 @@ fun ComposeNavigation(navController : NavHostController, modifier: Modifier, bar
             barShow(true)
         }
         composable(Wellness.route){
-            WellnessScreen(modifier = modifier)
+            WellnessScreen()
             barShow(false)
         }
         composable(ComposeUIList.route){
-            ComposeUIListScreen(navController, modifier)
+            ComposeUIListScreen(navController)
             barShow(false)
         }
         composable(TextUIList.route){

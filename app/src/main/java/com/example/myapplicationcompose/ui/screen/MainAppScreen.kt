@@ -1,5 +1,6 @@
 package com.example.myapplicationcompose.ui.screen
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -10,30 +11,31 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.example.myapplicationcompose.R
-import com.example.myapplicationcompose.navigation.ComposeNavigation
+import com.example.myapplicationcompose.learn.ShowView
+import com.example.myapplicationcompose.navigation.MainFragmentHome
 import com.example.myapplicationcompose.navigation.MainFragmentList
 import com.example.myapplicationcompose.navigation.bottomNavigationList
 import com.example.myapplicationcompose.navigation.navigateSingleTopTo
 import com.example.myapplicationcompose.ui.theme.MyApplicationComposeTheme
 import com.example.myapplicationcompose.ui.view.ButtonTransparent
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun MainContent(
-//    mViewModel: MainViewModel = viewModel()
+    navController: NavController
 ) {
-    val navController = rememberNavController()
-
-    var barShow by rememberSaveable { mutableStateOf(true) }
-
+    val barShow by rememberSaveable { mutableStateOf(true) }
+    val nav = rememberNavController()
     MyApplicationComposeTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
@@ -47,15 +49,20 @@ fun MainContent(
                 },
                 bottomBar = {
                     if (barShow) {
-                        BottomBar { navController.navigateSingleTopTo(it) }
+                        BottomBar { nav.navigateSingleTopTo(it) }
                     }
                 },
                 drawerContent = if (barShow) {
                     { DrawerContent() }
                 } else null,
             ) { paddingValues ->
-                ComposeNavigation(navController, modifier = Modifier.padding(paddingValues)) {
-                    barShow = it
+                NavHost(navController = nav, startDestination = MainFragmentList.route){
+                    composable(MainFragmentList.route){
+                        NavigationListScreen(navController, modifier = Modifier.padding(paddingValues))
+                    }
+                    composable(MainFragmentHome.route){
+                        ShowView()
+                    }
                 }
             }
         }

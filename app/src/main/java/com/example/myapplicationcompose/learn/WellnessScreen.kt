@@ -7,10 +7,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun WellnessScreen(
-    modifier: Modifier = Modifier,
     wellnessViewModel: WellnessViewModel = viewModel()
 ) {
-    Column(modifier = modifier) {
+    Column(modifier = Modifier) {
         WaterCounter()
         val list = wellnessViewModel.tasks
         WellnessTasksList(
