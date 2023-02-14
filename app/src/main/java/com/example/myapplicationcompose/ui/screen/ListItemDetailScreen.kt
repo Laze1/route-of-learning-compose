@@ -1,6 +1,7 @@
 package com.example.myapplicationcompose.ui.screen
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 
@@ -15,6 +16,8 @@ fun ListItemDetailScreen(onPop: () -> Unit) {
             )
         },
     ) {
+        LazyColumn{
 
+        }
     }
 }

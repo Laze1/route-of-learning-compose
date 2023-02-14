@@ -55,9 +55,9 @@ fun ComposeNavigation(){
             TextFieldSampleScreen()
         }
         composable(ListScreen.route){
-            ListScreen({navController.navigate(ListItemDetail.route)}){
+            ListScreen({navController.navigate(ListItemDetail.route)},{
                 navController.popBackStack()
-            }
+            })
         }
         composable(ListItemDetail.route){
             ListItemDetailScreen{
