@@ -1,6 +1,5 @@
 package com.example.myapplicationcompose.ui.screen
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
@@ -24,7 +23,6 @@ import com.example.myapplicationcompose.navigation.bottomNavigationList
 import com.example.myapplicationcompose.navigation.navigateSingleTopTo
 import com.example.myapplicationcompose.ui.view.ButtonTransparent
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun MainContent(
     navController: NavController

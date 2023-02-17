@@ -39,14 +39,16 @@ fun ListScreen(
     ) {
         LazyColumn {
             items(viewModel.list) {
-                TodoItem(it)
+                TodoItem(it){ isCheck ->
+                    viewModel.done(it,isCheck)
+                }
             }
         }
     }
 }
 
 @Composable
-fun TodoItem(todo: Todo) {
+fun TodoItem(todo: Todo,onCheckedChange:(Boolean)->Unit) {
     Row(
         modifier = Modifier.fillMaxWidth().padding(15.dp,5.dp),
         horizontalArrangement = Arrangement.SpaceBetween
@@ -56,6 +58,8 @@ fun TodoItem(todo: Todo) {
             Text(text = todo.date)
         }
         Checkbox(
-            checked = todo.done, onCheckedChange = {})
+            checked = todo.done, onCheckedChange = {
+                onCheckedChange(it)
+            })
     }
 }

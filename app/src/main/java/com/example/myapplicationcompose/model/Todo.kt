@@ -4,5 +4,5 @@ data class Todo(
     val id:Int,
     val content:String,
     val date:String,
-    val done:Boolean,
+    var done:Boolean,
 )

@@ -11,11 +11,20 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
 
     var list by mutableStateOf<List<Todo>>(listOf())
 
-    fun fetchList(){
+    fun fetchList() {
         list = listOf(
-            Todo(1,"212","212",false),
-            Todo(2,"212","212",false)
+            Todo(1, "212", "212", false),
+            Todo(2, "212", "212", false)
         )
+    }
+
+    fun done(todo: Todo, check: Boolean) {
+        list = list.map {
+            var newTodo = it
+            if (it.id == todo.id)
+                newTodo = it.copy(done = check)
+            newTodo
+        }
     }
 
 }
