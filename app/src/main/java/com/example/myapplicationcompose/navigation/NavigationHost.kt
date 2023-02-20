@@ -15,54 +15,52 @@ import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun ComposeNavigation(){
+fun ComposeNavigation() {
     val navController = rememberAnimatedNavController()
-    AnimatedNavHost(navController = navController, startDestination = MainApp.route){
-        composable(MainApp.route){
+    AnimatedNavHost(navController = navController, startDestination = MainApp.route) {
+        composable(MainApp.route) {
             MainContent(navController)
         }
-        composable(MainFragmentList.route){
+        composable(MainFragmentList.route) {
             NavigationListScreen(navController)
         }
-        composable(MainFragmentHome.route){
+        composable(MainFragmentHome.route) {
             ShowView()
         }
-        composable(Wellness.route){
+        composable(Wellness.route) {
             WellnessScreen()
         }
-        composable(ComposeUIList.route){
+        composable(ComposeUIList.route) {
             ComposeUIListScreen(navController)
         }
-        composable(TextUIList.route){
+        composable(TextUIList.route) {
             TextUiListScreen(navController)
         }
-        composable(ModifierSample.route){
+        composable(ModifierSample.route) {
             ModifierSample()
         }
-        composable(ButtonSample.route){
+        composable(ButtonSample.route) {
             ButtonSampleScreen()
         }
-        composable(IconSample.route){
+        composable(IconSample.route) {
             IconSampleScreen()
         }
-        composable(ImageSample.route){
+        composable(ImageSample.route) {
             ImageSampleScreen()
         }
-        composable(SwitchSample.route){
+        composable(SwitchSample.route) {
             SwitchSampleScreen()
         }
-        composable(TextFieldSample.route){
+        composable(TextFieldSample.route) {
             TextFieldSampleScreen()
         }
-        composable(ListScreen.route){
-            ListScreen({navController.navigate(ListItemDetail.route)},{
+        composable(ListScreen.route) {
+            ListScreen({ navController.navigate(ListItemDetail.route) }, {
                 navController.popBackStack()
             })
         }
-        composable(ListItemDetail.route){
-            ListItemDetailScreen{
-                navController.popBackStack()
-            }
+        composable(ListItemDetail.route) {
+            ListItemDetailScreen({ navController.popBackStack() })
         }
     }
 }

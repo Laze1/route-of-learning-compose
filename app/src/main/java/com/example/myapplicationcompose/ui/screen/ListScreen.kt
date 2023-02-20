@@ -3,6 +3,7 @@ package com.example.myapplicationcompose.ui.screen
 import android.annotation.SuppressLint
 import android.util.Log
 import android.widget.Toast
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -33,11 +34,11 @@ fun ListScreen(
     }
 
     val context = LocalContext.current
-    
-    LaunchedEffect(key1 = viewModel.toastContent){
+
+    LaunchedEffect(key1 = viewModel.toastContent) {
         Log.d("TAG", "ListScreen: ")
-        viewModel.toastContent.collect{
-            Toast.makeText(context, it,Toast.LENGTH_SHORT).show()
+        viewModel.toastContent.collect {
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -51,8 +52,8 @@ fun ListScreen(
     ) {
         LazyColumn {
             items(viewModel.list) {
-                TodoItem(it){ isCheck ->
-                    viewModel.done(it,isCheck)
+                TodoItem(it, onNavToDetail) { isCheck ->
+                    viewModel.done(it, isCheck)
                 }
             }
         }
@@ -60,12 +61,13 @@ fun ListScreen(
 }
 
 @Composable
-fun TodoItem(todo: Todo,onCheckedChange:(Boolean)->Unit) {
+fun TodoItem(todo: Todo, click: () -> Unit, onCheckedChange: (Boolean) -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(15.dp, 5.dp),
-        horizontalArrangement = Arrangement.SpaceBetween
+            .padding(15.dp, 5.dp)
+            .clickable { click() },
+        horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         Column {
             Text(text = todo.content)

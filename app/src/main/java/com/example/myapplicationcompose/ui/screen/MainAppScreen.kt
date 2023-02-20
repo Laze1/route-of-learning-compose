@@ -1,6 +1,7 @@
 package com.example.myapplicationcompose.ui.screen
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -57,8 +58,7 @@ private fun DrawerContent() {
 fun TopBar(
     title: String = "标题",
     navController: NavController? = null,
-    showMore: Boolean = false,
-    onMoreClick: () -> Unit = {}
+    moreView:@Composable () -> Unit = {}
 ) {
     TopAppBar(
         modifier = Modifier.padding(0.dp),
@@ -79,14 +79,7 @@ fun TopBar(
                     Icon(painter = painterResource(id = R.drawable.back), contentDescription = null)
                 }
             }
-            if (showMore) {
-                ButtonTransparent(
-                    Modifier.align(Alignment.CenterEnd),
-                    onMoreClick
-                ) {
-                    Icon(painter = painterResource(id = R.drawable.more), contentDescription = null)
-                }
-            }
+            moreView()
         }
     }
 }
@@ -94,9 +87,8 @@ fun TopBar(
 @Composable
 fun TopBar(
     title: String = "标题",
-    showMore: Boolean = false,
-    onMoreClick: () -> Unit = {},
     onBack:() -> Unit,
+    moreView:@Composable (BoxScope.() -> Unit) = {}
 ) {
     TopAppBar(
         modifier = Modifier.padding(0.dp),
@@ -115,14 +107,7 @@ fun TopBar(
             ) {
                 Icon(painter = painterResource(id = R.drawable.back), contentDescription = null)
             }
-            if (showMore) {
-                ButtonTransparent(
-                    Modifier.align(Alignment.CenterEnd),
-                    onMoreClick
-                ) {
-                    Icon(painter = painterResource(id = R.drawable.more), contentDescription = null)
-                }
-            }
+            moreView()
         }
     }
 }

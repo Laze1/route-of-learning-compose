@@ -1,6 +1,5 @@
 package com.example.myapplicationcompose.ui.screen
 
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -35,9 +34,7 @@ fun ComposeUIListScreen(
 ) {
     val scrollState = rememberScrollState()
     Column {
-        TopBar("列表",navController, showMore = true){
-            Toast.makeText(navController.context,"没有更多了",Toast.LENGTH_LONG).show()
-        }
+        TopBar("列表",navController)
 
         Column(
             modifier = Modifier

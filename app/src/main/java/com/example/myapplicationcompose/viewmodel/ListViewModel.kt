@@ -13,10 +13,10 @@ import kotlinx.coroutines.launch
 class ListViewModel(application: Application) : AndroidViewModel(application) {
 
     private var _list by mutableStateOf<List<Todo>>(listOf())
-    val list : List<Todo>
+    val list: List<Todo>
         get() = _list
 
-    var toastContent = MutableSharedFlow<String>()
+    val toastContent = MutableSharedFlow<String>()
 
 
     fun fetchList() {
@@ -38,12 +38,7 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
             if (check) {
                 toastContent.emit(
                     "${
-                        todo.content.substring(
-                            0..minOf(
-                                8,
-                                todo.content.length - 1
-                            )
-                        )
+                        todo.content.substring(0..minOf(8, todo.content.length - 1))
                     }..完成"
                 )
             }
@@ -51,4 +46,3 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
     }
 
 }
-
