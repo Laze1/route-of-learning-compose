@@ -1,6 +1,8 @@
 package com.example.myapplicationcompose.ui.screen
 
 import android.annotation.SuppressLint
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -14,6 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplicationcompose.model.Todo
@@ -27,6 +30,15 @@ fun ListScreen(
 ) {
     LaunchedEffect(key1 = Unit) {
         viewModel.fetchList()
+    }
+
+    val context = LocalContext.current
+    
+    LaunchedEffect(key1 = viewModel.toastContent){
+        Log.d("TAG", "ListScreen: ")
+        viewModel.toastContent.collect{
+            Toast.makeText(context, it,Toast.LENGTH_SHORT).show()
+        }
     }
 
     Scaffold(
@@ -50,7 +62,9 @@ fun ListScreen(
 @Composable
 fun TodoItem(todo: Todo,onCheckedChange:(Boolean)->Unit) {
     Row(
-        modifier = Modifier.fillMaxWidth().padding(15.dp,5.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(15.dp, 5.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Column {
