@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.myapplicationcompose.database.DB
 import com.example.myapplicationcompose.model.Todo
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
@@ -20,10 +21,9 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
 
 
     fun fetchList() {
-        _list = listOf(
-            Todo(1, "212", "212", false),
-            Todo(2, "2121", "2122", false)
-        )
+        viewModelScope.launch {
+            _list = DB.getInstance().todoDao().getAll()
+        }
     }
 
     fun done(todo: Todo, check: Boolean) {

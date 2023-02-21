@@ -9,10 +9,6 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -26,9 +22,6 @@ fun ListItemDetailScreen(
     viewModel: EditorViewModel = viewModel(),
     isCreate: Boolean = false
 ) {
-    var content by rememberSaveable {
-        mutableStateOf("")
-    }
 
     Scaffold(
         topBar = {
@@ -45,8 +38,8 @@ fun ListItemDetailScreen(
         }
     ) {
         OutlinedTextField(
-            value = content,
-            onValueChange = { info -> content = info },
+            value = viewModel.todo.content,
+            onValueChange = { info -> viewModel.onValueChanged(info) },
             modifier = Modifier
                 .padding(15.dp)
                 .fillMaxWidth()
