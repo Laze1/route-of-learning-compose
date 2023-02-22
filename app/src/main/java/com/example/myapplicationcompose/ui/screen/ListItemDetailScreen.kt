@@ -22,7 +22,6 @@ fun ListItemDetailScreen(
     viewModel: EditorViewModel = viewModel(),
     isCreate: Boolean = false
 ) {
-
     Scaffold(
         topBar = {
             TopBar(
@@ -31,7 +30,9 @@ fun ListItemDetailScreen(
             ){
                 TextButton(
                     modifier = Modifier.align(Alignment.CenterEnd),
-                    onClick = { viewModel.save() }) {
+                    onClick = { viewModel.save(){
+                        onPop()
+                    } }) {
                     Text(text = "保存")
                 }
             }

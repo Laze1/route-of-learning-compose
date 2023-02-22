@@ -6,7 +6,7 @@ import androidx.room.*
 data class Todo(
     @PrimaryKey(autoGenerate = true) val id: Int? = null,
     @ColumnInfo(name = "content") var content: String,
-    @ColumnInfo(name = "date") var date: String,
+    @ColumnInfo(name = "date") var date: Long,
     @ColumnInfo(name = "done") var done: Boolean,
 )
 

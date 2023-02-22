@@ -9,19 +9,21 @@ import androidx.lifecycle.viewModelScope
 import com.example.myapplicationcompose.database.DB
 import com.example.myapplicationcompose.model.Todo
 import kotlinx.coroutines.launch
+import java.util.*
 
 class EditorViewModel(application: Application) : AndroidViewModel(application) {
 
-    var todo by mutableStateOf(Todo(null,"","",false))
+    var todo by mutableStateOf(Todo(null,"",0,false))
 
-    fun save(){
+    fun save(onSuccess:()->Unit){
         viewModelScope.launch {
-            todo.content
+            todo.date = Date().time
             DB.getInstance().todoDao().insertAll(todo)
+            onSuccess()
         }
     }
 
     fun onValueChanged(it:String){
-        todo.content = it
+        todo= todo.copy(content = it)
     }
 }

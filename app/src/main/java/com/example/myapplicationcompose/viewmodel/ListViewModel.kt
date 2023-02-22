@@ -19,9 +19,9 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
 
     val toastContent = MutableSharedFlow<String>()
 
-
     fun fetchList() {
         viewModelScope.launch {
+            _list = listOf()
             _list = DB.getInstance().todoDao().getAll()
         }
     }
