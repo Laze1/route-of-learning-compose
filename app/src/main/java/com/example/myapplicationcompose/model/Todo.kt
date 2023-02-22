@@ -12,11 +12,8 @@ data class Todo(
 
 @Dao
 interface TodoDao {
-    @Query("SELECT * FROM todo")
+    @Query("SELECT * FROM todo ORDER BY done ASC, date DESC")
     suspend fun getAll(): List<Todo>
-
-    @Query("SELECT * FROM todo WHERE id IN (:ids)")
-    suspend fun loadAllByIds(ids: IntArray): List<Todo>
 
     @Query("SELECT * FROM todo WHERE content LIKE :qContent LIMIT 1")
     suspend fun findByContent(qContent: String): Todo

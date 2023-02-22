@@ -6,7 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.myapplicationcompose.database.DB
+import com.example.myapplicationcompose.database.getTodoDao
 import com.example.myapplicationcompose.model.Todo
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
@@ -21,8 +21,7 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
 
     fun fetchList() {
         viewModelScope.launch {
-            _list = listOf()
-            _list = DB.getInstance().todoDao().getAll()
+            _list = getTodoDao().getAll()
         }
     }
 
@@ -30,10 +29,12 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             _list = list.map {
                 var newTodo = it
-                if (it.id == todo.id)
+                if (it.id == todo.id) {
                     newTodo = it.copy(done = check)
+                    getTodoDao().update(newTodo)
+                }
                 newTodo
-            }
+            }.sortedByDescending { it.date }.sortedBy { it.done }
 
             if (check) {
                 toastContent.emit(

@@ -6,7 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.myapplicationcompose.database.DB
+import com.example.myapplicationcompose.database.getTodoDao
 import com.example.myapplicationcompose.model.Todo
 import kotlinx.coroutines.launch
 import java.util.*
@@ -18,7 +18,7 @@ class EditorViewModel(application: Application) : AndroidViewModel(application) 
     fun save(onSuccess:()->Unit){
         viewModelScope.launch {
             todo.date = Date().time
-            DB.getInstance().todoDao().insertAll(todo)
+            getTodoDao().insertAll(todo)
             onSuccess()
         }
     }

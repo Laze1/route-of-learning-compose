@@ -19,9 +19,12 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
@@ -83,8 +86,8 @@ fun TodoItem(todo: Todo, click: () -> Unit, onCheckedChange: (Boolean) -> Unit) 
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         Column {
-            Text(text = todo.content)
-            Text(text = todo.date.toTime())
+            Text(text = todo.content, textDecoration = if (todo.done) TextDecoration.LineThrough else TextDecoration.None)
+            Text(text = todo.date.toTime(), fontSize = 13.sp, color = Color.Gray)
         }
         Checkbox(
             checked = todo.done, onCheckedChange = {

@@ -19,3 +19,5 @@ object DB {
         return instance!!
     }
 }
+
+fun getTodoDao() = DB.getInstance().todoDao()
