@@ -15,6 +15,9 @@ interface TodoDao {
     @Query("SELECT * FROM todo ORDER BY done ASC, date DESC")
     suspend fun getAll(): List<Todo>
 
+    @Query("SELECT * FROM todo WHERE id=:qId LIMIT 1")
+    suspend fun findById(qId:Int):Todo?
+
     @Query("SELECT * FROM todo WHERE content LIKE :qContent LIMIT 1")
     suspend fun findByContent(qContent: String): Todo
 

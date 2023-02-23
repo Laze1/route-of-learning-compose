@@ -5,6 +5,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
 import com.example.myapplicationcompose.learn.ShowView
 import com.example.myapplicationcompose.learn.WellnessScreen
 import com.example.myapplicationcompose.ui.sample.*
@@ -55,12 +57,17 @@ fun ComposeNavigation() {
             TextFieldSampleScreen()
         }
         composable(ListScreen.route) {
-            ListScreen({ navController.navigate(ListItemDetail.route) }, {
-                navController.popBackStack()
-            })
+            ListScreen({ navController.navigate("${ListItemDetail.route}/$it") },
+                { navController.popBackStack() })
         }
-        composable(ListItemDetail.route) {
-            ListItemDetailScreen({ navController.popBackStack() })
+        composable("${ListItemDetail.route}/{${ListItemDetail.PARAMS_ID}}", arguments = listOf(
+            navArgument(ListItemDetail.PARAMS_ID) {
+                type = NavType.IntType
+            }
+        )) {
+            val argument = requireNotNull(it.arguments)
+            val id = argument.getInt(ListItemDetail.PARAMS_ID)
+            ListItemDetailScreen(id, { navController.popBackStack() })
         }
     }
 }

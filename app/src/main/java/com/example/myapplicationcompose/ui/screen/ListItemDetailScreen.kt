@@ -18,10 +18,14 @@ import com.example.myapplicationcompose.viewmodel.EditorViewModel
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun ListItemDetailScreen(
+    id:Int = 0,
     onPop: () -> Unit,
     viewModel: EditorViewModel = viewModel(),
     isCreate: Boolean = false
 ) {
+    if (id != 0) {
+        viewModel.getInfo(id)
+    }
     Scaffold(
         topBar = {
             TopBar(

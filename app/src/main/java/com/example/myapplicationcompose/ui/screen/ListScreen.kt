@@ -37,7 +37,8 @@ import java.util.*
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun ListScreen(
-    onNavToDetail: () -> Unit, onPop: () -> Unit,
+    onNavToDetail: (Int?) -> Unit,
+    onPop: () -> Unit,
     viewModel: ListViewModel = viewModel()
 ) {
     OnLifecycleEvent { owner, event ->
@@ -61,14 +62,14 @@ fun ListScreen(
     Scaffold(
         topBar = { TopBar("列表", onBack = onPop) },
         floatingActionButton = {
-            FloatingActionButton(onClick = onNavToDetail) {
+            FloatingActionButton(onClick = { onNavToDetail(0) }) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = null)
             }
         }
     ) {
         LazyColumn {
             items(viewModel.list) {
-                TodoItem(it, onNavToDetail) { isCheck ->
+                TodoItem(it, { onNavToDetail(it.id) }) { isCheck ->
                     viewModel.done(it, isCheck)
                 }
             }

@@ -62,5 +62,6 @@ object ListScreen : RallyDestination() {
 
 object ListItemDetail : RallyDestination() {
     override val route = "ListItemDetail"
+    const val PARAMS_ID = "id"
 }
 
