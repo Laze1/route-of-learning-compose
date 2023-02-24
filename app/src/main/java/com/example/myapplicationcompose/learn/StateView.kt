@@ -5,11 +5,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.myapplicationcompose.viewmodel.HomeViewModel
 
 
 @Preview(showBackground = true)
@@ -19,8 +24,11 @@ fun ShowView(){
 }
 
 @Composable
-fun HelloScreen() {
+fun HelloScreen(
+    viewModel:HomeViewModel = viewModel()
+) {
     var name by rememberSaveable { mutableStateOf("") }
+    viewModel.getMyInfo()
 
     HelloContent(name = name, onNameChange = { name = it })
 }
