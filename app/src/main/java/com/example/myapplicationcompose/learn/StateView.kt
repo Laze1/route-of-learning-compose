@@ -1,19 +1,20 @@
 package com.example.myapplicationcompose.learn
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedTextField
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.AsyncImage
 import com.example.myapplicationcompose.viewmodel.HomeViewModel
 
 
@@ -28,30 +29,26 @@ fun HelloScreen(
     viewModel:HomeViewModel = viewModel()
 ) {
     var name by rememberSaveable { mutableStateOf("") }
-    viewModel.getMyInfo()
+    var avatarUrl by rememberSaveable { mutableStateOf("") }
 
-    HelloContent(name = name, onNameChange = { name = it })
-}
-
-@Composable
-fun HelloContent(name:String, onNameChange:(String)->Unit) {
-    //三种方法等价，只是不同的语法糖
-//    var name by remember { mutableStateOf("") }
-//    val name = remember { mutableStateOf("") }
-//    val (name, setName) = remember { mutableStateOf("") }
-    Column(modifier = Modifier.padding(16.dp)) {
-        if (name.isNotEmpty()) {
-            Text(
-                text = "Hello! $name",
-                modifier = Modifier.padding(bottom = 8.dp),
-                style = MaterialTheme.typography.h5
-            )
+    LaunchedEffect(key1 = viewModel){
+        viewModel.info.collect{
+            name = it.login
+            avatarUrl = it.avatarUrl
         }
-        OutlinedTextField(
-            value = name,
-            onValueChange = onNameChange,
-            label = { Text("Name") }
+    }
+    viewModel.getInfo()
+
+    Column(modifier = Modifier.padding(15.dp).fillMaxWidth()) {
+        AsyncImage(model = avatarUrl,
+            contentDescription = "",
+            modifier = Modifier.padding(15.dp)
+                .size(100.dp)
+                .align(Alignment.CenterHorizontally)
+                .clip(CircleShape)
         )
+        Text(text = name, modifier = Modifier.padding(top = 10.dp).align(Alignment.CenterHorizontally))
     }
 }
+
 
