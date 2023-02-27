@@ -5,6 +5,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.example.myapplicationcompose.base.BaseViewModel
+import com.example.myapplicationcompose.bean.GithubReposBean
 import com.example.myapplicationcompose.bean.GithubUserInfoBean
 import com.example.myapplicationcompose.http.ApiRequest
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,16 +14,34 @@ import kotlinx.coroutines.flow.StateFlow
 class HomeViewModel(application: Application) : BaseViewModel(application) {
 
     private var _info = MutableStateFlow(GithubUserInfoBean())
-//    val info: StateFlow<GithubUserInfoBean> = _info
     val info: StateFlow<GithubUserInfoBean>
         get() = _info
+
+    private var _repos = MutableStateFlow(ArrayList<GithubReposBean>())
+    val repos: StateFlow<ArrayList<GithubReposBean>>
+        get() = _repos
+
+
 
     var showLoading by mutableStateOf(true)
 
     fun process(intent: HomeIntent) {
         when (intent) {
-            HomeIntent.GetInfoIntent -> getInfo()
+            HomeIntent.GET_INFO -> getInfo()
+            HomeIntent.GET_REPOS -> getRepos()
         }
+    }
+
+    private fun getRepos(){
+        launch({
+            showLoading = true
+            val data = ApiRequest(apiGithub).getRepos("Laze1")
+            _repos.value = data
+        }, {
+            showLoading = false
+        },{
+            showLoading = false
+        })
     }
 
     private fun getInfo() {
@@ -39,6 +58,6 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
 }
 
 enum class HomeIntent{
-    GetInfoIntent,
+    GET_INFO,GET_REPOS
 }
 

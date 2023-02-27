@@ -1,9 +1,16 @@
 package com.example.myapplicationcompose.learn
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.Divider
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Group
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -30,20 +37,12 @@ fun HelloScreen(
     viewModel:HomeViewModel = viewModel()
 ) {
     val info by viewModel.info.collectAsState()
-//
-//    var name by rememberSaveable { mutableStateOf("") }
-//    var avatarUrl by rememberSaveable { mutableStateOf("") }
-//
-//    LaunchedEffect(key1 = viewModel){
-//        viewModel.info.collect{
-//            name = it.login
-//            avatarUrl = it.avatarUrl
-//        }
-//    }
-    LaunchedEffect(key1 = viewModel, block = {
-        viewModel.process(HomeIntent.GetInfoIntent)
-    })
+    val repos by viewModel.repos.collectAsState()
 
+    LaunchedEffect(key1 = viewModel, block = {
+        viewModel.process(HomeIntent.GET_INFO)
+        viewModel.process(HomeIntent.GET_REPOS)
+    })
 
     Column(modifier = Modifier
         .padding(15.dp)
@@ -59,6 +58,32 @@ fun HelloScreen(
         Text(text = info.login, modifier = Modifier
             .padding(top = 10.dp)
             .align(Alignment.CenterHorizontally))
+
+        Row(
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .padding(top = 10.dp)
+        ) {
+            Icon(imageVector = Icons.Default.Group, contentDescription = null, modifier = Modifier.align(Alignment.CenterVertically))
+            Text(text = "${info.followers} Followers", modifier = Modifier
+                .padding(end = 10.dp, start = 5.dp)
+                .align(Alignment.CenterVertically))
+            Icon(imageVector = Icons.Default.Star, contentDescription = null,modifier = Modifier
+                .padding(start = 10.dp, end = 5.dp)
+                .align(Alignment.CenterVertically))
+            Text(text = "${info.publicRepos} Repos", modifier = Modifier.align(Alignment.CenterVertically))
+        }
+        
+        Divider(thickness = 1.dp, modifier = Modifier
+            .fillMaxWidth()
+            .padding(15.dp))
+
+        LazyColumn(modifier = Modifier.fillMaxSize()){
+            items(repos){
+                Text(text = it.name)
+            }
+        }
+
     }
 
     if (viewModel.showLoading){
