@@ -9,6 +9,7 @@ import androidx.compose.material.icons.filled.Done
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -70,6 +71,7 @@ fun TopBar(
                 text = title,
                 fontSize = androidx.compose.material3.MaterialTheme.typography.titleMedium.fontSize,
                 modifier = Modifier.align(Alignment.Center),
+                color = Color.Black
             )
             navController?.let {
                 ButtonTransparent(
@@ -100,6 +102,7 @@ fun TopBar(
                 text = title,
                 fontSize = androidx.compose.material3.MaterialTheme.typography.titleMedium.fontSize,
                 modifier = Modifier.align(Alignment.Center),
+                color = Color.Black
             )
             ButtonTransparent(
                 Modifier.align(Alignment.CenterStart),

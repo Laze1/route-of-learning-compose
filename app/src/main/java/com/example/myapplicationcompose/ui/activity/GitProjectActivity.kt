@@ -35,7 +35,7 @@ class GitProjectActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Column() {
                     TopBar(title = name, onBack = { finish() })
-                    Content()
+                    Content(name)
                 }
             }
         }
@@ -44,12 +44,12 @@ class GitProjectActivity : ComponentActivity() {
 
 
 @Composable
-fun Content(viewModel: GitProjectViewModel = viewModel()) {
+fun Content(pName:String, viewModel: GitProjectViewModel = viewModel()) {
 
     val commits by viewModel.commit.collectAsState()
 
     LaunchedEffect(key1 = viewModel, block = {
-        viewModel.getCommits()
+        viewModel.getCommits(pName)
     })
 
     LazyColumn(modifier = Modifier.padding(vertical = 10.dp, horizontal = 15.dp)){

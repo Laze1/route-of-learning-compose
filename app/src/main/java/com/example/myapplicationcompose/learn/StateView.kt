@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
+import com.example.myapplicationcompose.base.PROJECT_NAME
 import com.example.myapplicationcompose.ui.activity.GitProjectActivity
 import com.example.myapplicationcompose.viewmodel.HomeIntent
 import com.example.myapplicationcompose.viewmodel.HomeViewModel
@@ -37,13 +38,13 @@ import com.example.myapplicationcompose.viewmodel.HomeViewModel
 
 @Preview(showBackground = true)
 @Composable
-fun ShowView(){
+fun ShowView() {
     HelloScreen()
 }
 
 @Composable
 fun HelloScreen(
-    viewModel:HomeViewModel = viewModel()
+    viewModel: HomeViewModel = viewModel()
 ) {
     val context = LocalContext.current
 
@@ -55,10 +56,13 @@ fun HelloScreen(
         viewModel.process(HomeIntent.GET_REPOS)
     })
 
-    Column(modifier = Modifier
-        .padding(15.dp)
-        .fillMaxWidth()) {
-        AsyncImage(model = info.avatarUrl,
+    Column(
+        modifier = Modifier
+            .padding(15.dp)
+            .fillMaxWidth()
+    ) {
+        AsyncImage(
+            model = info.avatarUrl,
             contentDescription = "",
             modifier = Modifier
                 .padding(15.dp)
@@ -66,43 +70,80 @@ fun HelloScreen(
                 .align(Alignment.CenterHorizontally)
                 .clip(CircleShape)
         )
-        Text(text = info.login, modifier = Modifier
-            .padding(top = 10.dp)
-            .align(Alignment.CenterHorizontally))
+        Text(
+            text = info.login, modifier = Modifier
+                .padding(top = 10.dp)
+                .align(Alignment.CenterHorizontally)
+        )
 
         Row(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
                 .padding(top = 10.dp)
         ) {
-            Icon(imageVector = Icons.Default.Group, contentDescription = null, modifier = Modifier.align(Alignment.CenterVertically))
-            Text(text = "${info.followers} Followers", modifier = Modifier
-                .padding(end = 10.dp, start = 5.dp)
-                .align(Alignment.CenterVertically))
-            Icon(imageVector = Icons.Default.Star, contentDescription = null,modifier = Modifier
-                .padding(start = 10.dp, end = 5.dp)
-                .align(Alignment.CenterVertically))
-            Text(text = "${info.publicRepos} Repos", modifier = Modifier.align(Alignment.CenterVertically))
+            Icon(
+                imageVector = Icons.Default.Group,
+                contentDescription = null,
+                modifier = Modifier.align(Alignment.CenterVertically)
+            )
+            Text(
+                text = "${info.followers} Followers", modifier = Modifier
+                    .padding(end = 10.dp, start = 5.dp)
+                    .align(Alignment.CenterVertically)
+            )
+            Icon(
+                imageVector = Icons.Default.Star, contentDescription = null, modifier = Modifier
+                    .padding(start = 10.dp, end = 5.dp)
+                    .align(Alignment.CenterVertically)
+            )
+            Text(
+                text = "${info.publicRepos} Repos",
+                modifier = Modifier.align(Alignment.CenterVertically)
+            )
         }
-        
-        Divider(thickness = 1.dp, modifier = Modifier
-            .fillMaxWidth())
 
-        LazyColumn(modifier = Modifier.fillMaxSize().padding(vertical = 10.dp)){
-            items(repos){
-                Box(modifier = Modifier.fillMaxWidth()
+        Divider(
+            thickness = 1.dp, modifier = Modifier
+                .fillMaxWidth()
+        )
+
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(vertical = 10.dp),
+            reverseLayout = true,
+            verticalArrangement = Arrangement.Top
+        ) {
+            items(repos) {
+                Box(modifier = Modifier
+                    .fillMaxWidth()
                     .padding(vertical = 5.dp)
                     .border(1.dp, Color.Gray, RoundedCornerShape(5.dp))
                     .shadow(1.dp)
                     .clickable {
-                        context.startActivity(Intent(context, GitProjectActivity::class.java).apply {
-                            putExtra("name",it.name)
-                        })
+                        context.startActivity(
+                            Intent(
+                                context,
+                                GitProjectActivity::class.java
+                            ).apply {
+                                putExtra("name", it.name)
+                            })
                     }
-                    ) {
+                ) {
                     Column(modifier = Modifier.padding(5.dp)) {
                         Text(text = it.name, textDecoration = null)
                         Text(text = it.htmlUrl, fontSize = 13.sp, color = Color.Gray)
+                    }
+                    if (it.name == PROJECT_NAME) {
+                        Text(
+                            text = "this project",
+                            color = Color.Green,
+                            modifier = Modifier
+                                .align(Alignment.TopEnd)
+                                .padding(3.dp)
+                                .border(1.dp, Color.Green, RoundedCornerShape(3.dp))
+                                .padding(horizontal = 3.dp)
+                        )
                     }
                 }
 
@@ -111,8 +152,8 @@ fun HelloScreen(
 
     }
 
-    if (viewModel.showLoading){
-        Box(modifier = Modifier.fillMaxSize()){
+    if (viewModel.showLoading) {
+        Box(modifier = Modifier.fillMaxSize()) {
             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         }
     }

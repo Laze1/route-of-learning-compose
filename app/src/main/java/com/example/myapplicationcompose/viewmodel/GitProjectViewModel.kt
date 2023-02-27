@@ -2,7 +2,6 @@ package com.example.myapplicationcompose.viewmodel
 
 import android.app.Application
 import com.example.myapplicationcompose.base.BaseViewModel
-import com.example.myapplicationcompose.base.PROJECT_NAME
 import com.example.myapplicationcompose.base.USER_NAME
 import com.example.myapplicationcompose.bean.GithubCommitBean
 import com.example.myapplicationcompose.http.ApiRequest
@@ -15,9 +14,9 @@ class GitProjectViewModel(application: Application) : BaseViewModel(application)
     val commit: StateFlow<ArrayList<GithubCommitBean>>
         get() = _commit
 
-    fun getCommits(){
+    fun getCommits(pName:String){
         launch({
-            val data = ApiRequest(apiGithub).getCommits(USER_NAME, PROJECT_NAME)
+            val data = ApiRequest(apiGithub).getCommits(USER_NAME, pName)
             _commit.value = data
         }, {
 
