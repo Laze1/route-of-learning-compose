@@ -5,6 +5,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.example.myapplicationcompose.base.BaseViewModel
+import com.example.myapplicationcompose.base.USER_NAME
 import com.example.myapplicationcompose.bean.GithubReposBean
 import com.example.myapplicationcompose.bean.GithubUserInfoBean
 import com.example.myapplicationcompose.http.ApiRequest
@@ -35,7 +36,7 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
     private fun getRepos(){
         launch({
             showLoading = true
-            val data = ApiRequest(apiGithub).getRepos("Laze1")
+            val data = ApiRequest(apiGithub).getRepos(USER_NAME)
             _repos.value = data
         }, {
             showLoading = false
@@ -47,7 +48,7 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
     private fun getInfo() {
         launch({
             showLoading = true
-            val data = ApiRequest(apiGithub).getUser("Laze1")
+            val data = ApiRequest(apiGithub).getUser(USER_NAME)
             _info.value = data
         }, {
             showLoading = false
