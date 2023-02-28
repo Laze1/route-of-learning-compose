@@ -56,6 +56,9 @@ fun ComposeNavigation() {
         composable(TextFieldSample.route) {
             TextFieldSampleScreen()
         }
+        composable(TestScreen.route) {
+            TestScreen()
+        }
         composable(ListScreen.route) {
             ListScreen({ navController.navigate("${ListItemDetail.route}/$it") },
                 { navController.popBackStack() })
