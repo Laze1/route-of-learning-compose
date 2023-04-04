@@ -1,24 +1,30 @@
 package com.example.myapplicationcompose.ui.screen
 
 import androidx.compose.animation.*
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import com.example.myapplicationcompose.R
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun AnimationScreen() {
     val scrollState = rememberScrollState()
@@ -45,7 +51,13 @@ fun AnimationScreen() {
                     initialAlpha = 0.3f
                 ),
                 exit = slideOutVertically() + shrinkVertically() + fadeOut()) {
-                Text(text = "This is Text1")
+                Image(
+                    bitmap = ImageBitmap.imageResource(id = R.mipmap.r),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .padding(10.dp)
+                        .clip(RoundedCornerShape(5.dp))
+                )
             }
 
             AnimatedVisibility(
@@ -61,7 +73,13 @@ fun AnimationScreen() {
                 ),
                 exit = slideOutHorizontally() + shrinkHorizontally() + slideOutHorizontally(),
                 modifier = Modifier.align(Alignment.End)) {
-                Text(text = "This is Text2")
+                Image(
+                    bitmap = ImageBitmap.imageResource(id = R.mipmap.xiao),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .padding(10.dp)
+                        .clip(RoundedCornerShape(5.dp))
+                )
             }
 
             Button(
@@ -70,7 +88,65 @@ fun AnimationScreen() {
                 Text(text = "AnimatedVisibility")
             }
 
+            //animate*AsState
+            //用于为单个值添加动画效果。您只需提供结束值（或目标值），该 API 就会从当前值开始向指定值播放动画。
+            var enabled by rememberSaveable { mutableStateOf(true) }
+            val alpha: Float by animateFloatAsState(if (enabled) 1f else 0.2f)
+            Box(
+                Modifier
+                    .fillMaxSize()
+                    .graphicsLayer(alpha = alpha)
+            ) {
+                Image(
+                    bitmap = ImageBitmap.imageResource(id = R.mipmap.xiao),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .padding(10.dp)
+                        .clip(RoundedCornerShape(5.dp))
+                )
+            }
 
+            Button(onClick = { enabled = !enabled }) {
+                Text(text = "animate*AsState")
+            }
+
+            var count by rememberSaveable { mutableStateOf(0) }
+
+            Box(
+                Modifier
+                    .size(100.dp)
+                    .padding(10.dp)
+                    .background(Color.Gray)
+            ) {
+                AnimatedContent(
+                    targetState = count,
+                    transitionSpec = {
+                        // Compare the incoming number with the previous number.
+                        if (targetState > initialState) {
+                            // If the target number is larger, it slides up and fades in
+                            // while the initial (smaller) number slides up and fades out.
+                            slideInVertically { height -> height } + fadeIn() with
+                                    slideOutVertically { height -> -height } + fadeOut()
+                        } else {
+                            // If the target number is smaller, it slides down and fades in
+                            // while the initial number slides down and fades out.
+                            slideInVertically { height -> -height } + fadeIn() with
+                                    slideOutVertically { height -> height } + fadeOut()
+                        }.using(
+                            // Disable clipping since the faded slide-in/out should
+                            // be displayed out of bounds.
+                            SizeTransform(clip = false)
+                        )
+                    },
+                    modifier = Modifier.align(Alignment.Center)
+                ) { targetCount ->
+                    Text(text = "$targetCount")
+                }
+            }
+
+            Button(onClick = { count++ }) {
+                Text("Add")
+            }
 
         }
     }
