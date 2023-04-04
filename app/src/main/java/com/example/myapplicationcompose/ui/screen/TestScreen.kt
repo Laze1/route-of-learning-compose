@@ -1,78 +1,43 @@
 package com.example.myapplicationcompose.ui.screen
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.*
+import androidx.compose.foundation.layout.Row
+import androidx.compose.material.Button
+import androidx.compose.material.Text
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.unit.dp
-import com.example.myapplicationcompose.R
+import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun TestScreen() {
-    DisplaySnackBarOnClik()
+    showThem()
 }
 
+var stringValues0 = arrayOf("1", "2")
+var oneValue0 = "1"
+
+@Preview
 @Composable
-fun DisplaySnackBarOnClik() {
+fun showThem() {
 
-    var canShowSnackBar by remember {
-        mutableStateOf(false)
-    }
+    var stringValue by remember { mutableStateOf(stringValues0) }
+    var oneValue by remember { mutableStateOf(oneValue0) }
 
-    Column(
-        modifier = Modifier
-            .verticalScroll(rememberScrollState())
-            .fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(5.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-
-        Button(
-            onClick = { canShowSnackBar = !canShowSnackBar },
-            elevation = ButtonDefaults.elevation(
-                defaultElevation = 10.dp,
-                pressedElevation = 15.dp,
-                disabledElevation = 0.dp
-            ),
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = colorResource(R.color.purple_200),
-                contentColor = colorResource(R.color.white)
-            )
-        ) {
-            Text(text = "Show Snack Bar")
+    Column {
+        Text(text = oneValue)
+        Row {
+            for (k in stringValue.indices) {
+                Text(text = stringValue[k])
+            }
         }
+        Button(onClick = {
+            stringValue[0] = "3"
+            stringValue = stringValues0.copyOf()
+        }) {
 
+        }
+        Button(onClick = { stringValue[0] = "333" }) {
+
+        }
     }
 
-    if (canShowSnackBar) {
-        MySnackbar("Hello, Snackbar!", "Dismiss")
-    }
-
-}
-
-@Composable
-fun MySnackbar(
-    message: String,
-    actionLabel: String,
-    duration: SnackbarDuration = SnackbarDuration.Short
-) {
-    val snackbarHostState = remember { SnackbarHostState() }
-
-    LaunchedEffect(snackbarHostState) {
-        snackbarHostState.showSnackbar(message, actionLabel, duration = duration)
-    }
-    Box(
-        Modifier.fillMaxSize(), contentAlignment = Alignment.BottomCenter
-    ) {
-        SnackbarHost(
-            hostState = snackbarHostState
-        )
-    }
 }

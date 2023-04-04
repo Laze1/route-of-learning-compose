@@ -17,4 +17,5 @@ val navList = listOf(
     SwitchSample.route,
     TextFieldSample.route,
     TestScreen.route,
+    AnimationScreen.route,
 )

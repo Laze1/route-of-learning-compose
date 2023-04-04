@@ -1,5 +1,6 @@
 package com.example.myapplicationcompose.ui.screen
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -18,7 +19,7 @@ fun NavigationListScreen(
     navController: NavController,
     modifier: Modifier = Modifier
 ) {
-    LazyColumn(modifier = modifier.padding(15.dp)) {
+    LazyColumn(modifier = modifier.padding(15.dp).fillMaxWidth()) {
         items(
             items = navList,
         ) { route ->

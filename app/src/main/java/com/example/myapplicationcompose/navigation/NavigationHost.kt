@@ -72,6 +72,9 @@ fun ComposeNavigation() {
             val id = argument.getInt(ListItemDetail.PARAMS_ID)
             ListItemDetailScreen(id, { navController.popBackStack() })
         }
+        composable(AnimationScreen.route) {
+            AnimationScreen()
+        }
     }
 }
 

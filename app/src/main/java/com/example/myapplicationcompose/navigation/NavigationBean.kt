@@ -69,3 +69,7 @@ object TestScreen : RallyDestination() {
     override val route = "TestScreen"
 }
 
+object AnimationScreen : RallyDestination() {
+    override val route = "AnimationScreen"
+}
+
