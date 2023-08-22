@@ -22,6 +22,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.myapplicationcompose.R
 
 @OptIn(ExperimentalAnimationApi::class)
@@ -125,12 +126,12 @@ fun AnimationScreen() {
                         if (targetState > initialState) {
                             // If the target number is larger, it slides up and fades in
                             // while the initial (smaller) number slides up and fades out.
-                            slideInVertically { height -> height } + fadeIn() with
+                            slideInVertically { height -> height + 10 } + fadeIn() with
                                     slideOutVertically { height -> -height } + fadeOut()
                         } else {
                             // If the target number is smaller, it slides down and fades in
                             // while the initial number slides down and fades out.
-                            slideInVertically { height -> -height } + fadeIn() with
+                            slideInVertically { height -> -height - 10 } + fadeIn() with
                                     slideOutVertically { height -> height } + fadeOut()
                         }.using(
                             // Disable clipping since the faded slide-in/out should
@@ -140,11 +141,11 @@ fun AnimationScreen() {
                     },
                     modifier = Modifier.align(Alignment.Center)
                 ) { targetCount ->
-                    Text(text = "$targetCount")
+                    Text(text = "$targetCount", fontSize = 25.sp)
                 }
             }
 
-            Button(onClick = { count++ }) {
+            Button(onClick = { if (System.currentTimeMillis() % 2 == 0L) count++ else count-- }) {
                 Text("Add")
             }
 

@@ -8,18 +8,18 @@ import com.example.myapplicationcompose.bean.GithubUserInfoBean
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-interface Api {
-    @GET("users/{username}")
+interface ApiGithub {
+    @GET("/users/{username}")
     suspend fun getInfo(
         @Path("username") name:String = USER_NAME
     ): GithubUserInfoBean
 
-    @GET("users/{username}/repos")
+    @GET("/users/{username}/repos")
     suspend fun getRepos(
         @Path("username") name:String = USER_NAME
     ): ArrayList<GithubReposBean>
 
-    @GET("repos/{username}/{projectName}/commits")
+    @GET("/repos/{username}/{projectName}/commits")
     suspend fun getCommits(
         @Path("username") name:String = USER_NAME,
         @Path("projectName") projectName:String = PROJECT_NAME,

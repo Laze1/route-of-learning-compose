@@ -50,10 +50,12 @@ fun HelloScreen(
 
     val info by viewModel.info.collectAsState()
     val repos by viewModel.repos.collectAsState()
+    val hello by viewModel.hello.collectAsState()
 
     LaunchedEffect(key1 = viewModel, block = {
         viewModel.process(HomeIntent.GET_INFO)
         viewModel.process(HomeIntent.GET_REPOS)
+        viewModel.process(HomeIntent.GET_HELLO)
     })
 
     Column(
@@ -71,7 +73,7 @@ fun HelloScreen(
                 .clip(CircleShape)
         )
         Text(
-            text = info.login, modifier = Modifier
+            text = "$hello ${info.login}", modifier = Modifier
                 .padding(top = 10.dp)
                 .align(Alignment.CenterHorizontally)
         )

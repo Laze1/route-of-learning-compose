@@ -5,7 +5,7 @@ import com.example.myapplicationcompose.bean.GithubReposBean
 import com.example.myapplicationcompose.bean.GithubUserInfoBean
 
 
-class ApiRequest(private val service: Api) {
+class ApiGithubRequest(private val service: ApiGithub) {
 
     suspend fun getUser(username: String): GithubUserInfoBean {
         return service.getInfo(username)

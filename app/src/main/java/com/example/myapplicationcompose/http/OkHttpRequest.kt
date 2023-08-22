@@ -10,16 +10,23 @@ class OkHttpRequest {
     companion object {
         private const val DEFAULT_TIMEOUT = 10L
 
-        private var api: Api? = null
+        private var apiGithub: ApiGithub? = null
 
-        private const val BASE_GITHUB_URL = "https://api.github.com/"
+        private const val BASE_GITHUB_URL = "https://api.github.com"
+
+        private const val BASE_MY_URL = "http://localhost:8080"
 
         @Synchronized
-        fun getGithubApi(): Api {
-            if (api == null) {
-                api = createGithubApi()
+        fun getGithubApi(): ApiGithub {
+            if (apiGithub == null) {
+                apiGithub = createGithubApi()
             }
-            return api!!
+            return apiGithub!!
+        }
+
+        @Synchronized
+        fun getMyApi(): ApiMy {
+            return createMyApi()
         }
 
         private fun getClient() = OkHttpClient.Builder()
@@ -32,13 +39,22 @@ class OkHttpRequest {
             .build()
 
 
-        private fun createGithubApi(): Api {
+        private fun createGithubApi(): ApiGithub {
             return Retrofit.Builder()
                 .baseUrl(BASE_GITHUB_URL)
                 .client(getClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-                .create(Api::class.java)
+                .create(ApiGithub::class.java)
+        }
+
+        private fun createMyApi(): ApiMy {
+            return Retrofit.Builder()
+                .baseUrl(BASE_MY_URL)
+                .client(getClient())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(ApiMy::class.java)
         }
     }
 

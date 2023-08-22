@@ -14,6 +14,10 @@ open class BaseViewModel(application: Application):AndroidViewModel(application)
         OkHttpRequest.getGithubApi()
     }
 
+    val apiMy by lazy {
+        OkHttpRequest.getMyApi()
+    }
+
     fun launch(
         block: suspend () -> Unit,
         error: suspend (Throwable) -> Unit,
